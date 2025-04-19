@@ -55,5 +55,3 @@ if __name__ == '__main__':
     talk_Memory.update([user_sentence,system_sentence])
 
     history = talk_Memory.get(5)
-
-git commi -m '模块完成抽取、存储'
