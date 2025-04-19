@@ -42,9 +42,9 @@ class Talk_Memory(Memory):
     """
 
     def database(**args):
-        
+        pass
 
-    def get(self, ):
+    def get(self, len_history):
         pass
 
     def update(self, talk_info : talk_current):
