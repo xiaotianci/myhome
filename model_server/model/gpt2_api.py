@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 from transformers import BertTokenizer, GPT2LMHeadModel
 import torch
+from fastapi import FastAPI,Request
+app = FastAPI()
 
-def generate_answer(input_text,model,max_len = 1000):
+def generate_answer(input_text,model,max_len = 50):
     model.eval()
     model.to(device)
     input_ids = tokenizer.encode(input_text, return_tensors="pt").to(device)
@@ -25,14 +27,17 @@ def generate_answer(input_text,model,max_len = 1000):
     return generated_text
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-tokenizer = BertTokenizer.from_pretrained(r"D:\000test\Mpi\myhome\Model\gpt2-chinese-cluecorpussmall-tokenizer")
-model = GPT2LMHeadModel.from_pretrained(r'D:\000test\Mpi\myhome\Model\gpt2\gpt2-chinese-cluecorpussmall')
+tokenizer = BertTokenizer.from_pretrained(r"F:\project\model_params\gpt2\gpt2-chinese-cluecorpussmall-tokenizer")
+model = GPT2LMHeadModel.from_pretrained(r'F:\project\model_params\gpt2\gpt2-chinese-cluecorpussmall')
 model.to(device)
 
 
-
-def get_ans_from_question(question):
+@app.post("/infer/")
+async def get_ans_from_question(data : Request):
+    data = await data.json()
+    question = data['question']
     ans = generate_answer(question, model)
-    return ans
+    res = {'result':ans}
+    return res
 
 
