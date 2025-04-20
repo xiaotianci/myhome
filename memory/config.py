@@ -1,1 +1,0 @@
-ROLE = ['system_talk', 'user_talk']
