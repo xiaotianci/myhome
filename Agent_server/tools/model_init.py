@@ -50,4 +50,3 @@ if __name__ == "__main__":
     private_models_url = models_url
     model = GPT2_model(prompt_generation, private_models_url, 'gpt2')
     result = model('今天天气如何')
-    1
